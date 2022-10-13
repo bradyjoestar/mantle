@@ -12,7 +12,7 @@ services:
   deployer:
     build:
       context: ..
-      dockerfile: ../../docker/Dockerfile.packages
+      dockerfile: ../ops/docker/Dockerfile.packages
       target: deployer
     image: mantlenetworkio/deployer:${DOCKER_TAG_DEPLOYER:-latest}
     entrypoint: ./deployer.sh
