@@ -1,6 +1,6 @@
 DOCKER_COMPOSE_CMD := docker-compose \
 	-f docker-compose.goerli.mantle.deploy.yml
-COPY_ENV := cp -r envs/deployer.env ./.env
+COPY_ENV := cp -r ../envs/deployer.env ./.env
 
 build:
 	DOCKER_BUILDKIT=1 \
