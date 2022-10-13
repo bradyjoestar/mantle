@@ -1,0 +1,38 @@
+version: '3.4'
+
+networks:
+  mantle: {}
+
+x-base: &base
+  restart: unless-stopped
+  networks:
+    mantle: {}
+
+services:
+  deployer:
+    build:
+      context: ..
+      dockerfile: ./ops/docker/Dockerfile.packages
+      target: deployer
+    image: mantlenetworkio/deployer:${DOCKER_TAG_DEPLOYER:-latest}
+    entrypoint: ./deployer.sh
+    <<: *base
+    container_name: mantledeployer
+    environment:
+      CONTRACTS_RPC_URL: ${CONTRACTS_RPC_URL:-https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp}
+      CONTRACTS_DEPLOYER_KEY: ${CONTRACTS_DEPLOYER_KEY:-e4bf8c09fc7bb5c3eb932260b9fcf0f2a3fecb61512b0e979afb4ce1187bfe70}
+      CONTRACTS_TARGET_NETWORK: ${CONTRACTS_TARGET_NETWORK:-goerli-mantle}
+      ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY:-B1XAN986315AME96W9QK7X1RGQ6WJMWEPW}
+      BVM_SEQUENCER_ADDRESS: ${BVM_SEQUENCER_ADDRESS:-}
+      BVM_PROPOSER_ADDRESS: ${BVM_PROPOSER_ADDRESS:-}
+      SKIP_CONTRACT_DEPLOY: ${CONTRACTS_DEPLOYER_KEY:-NO}
+      BVM_BLOCK_SIGNER_ADDRESS: ${BVM_BLOCK_SIGNER_ADDRESS:-}
+      BVM_FEE_WALLET_ADDRESS: ${BVM_FEE_WALLET_ADDRESS:-}
+      BVM_ADDRESS_MANAGER_OWNER: ${BVM_ADDRESS_MANAGER_OWNER:-}
+      BVM_GAS_PRICE_ORACLE_OWNER: ${BVM_GAS_PRICE_ORACLE_OWNER:-}
+      AUTOMATICALLY_TRANSFER_OWNERSHIP: ${AUTOMATICALLY_TRANSFER_OWNERSHIP:-true}
+      L1_BIT_ADDRESS: ${L1_BIT_ADDRESS:-0x51D7e0e31c2050f381Ce9F1807013A4f74Dae8b1}
+    ports:
+      # expose the service to the host for getting the contract addrs
+      - ${DEPLOYER_PORT:-8080}:8081
+
