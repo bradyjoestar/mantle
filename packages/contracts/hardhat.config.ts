@@ -65,6 +65,14 @@ const config: HardhatUserConfig = {
         'e4bf8c09fc7bb5c3eb932260b9fcf0f2a3fecb61512b0e979afb4ce1187bfe70',
       ],
     },
+    'goerli-mantle': {
+      chainId: 5,  // l1 测试网的地址
+      url: 'https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp',
+      deploy,
+      accounts: [
+        'e4bf8c09fc7bb5c3eb932260b9fcf0f2a3fecb61512b0e979afb4ce1187bfe70',
+      ],
+    },
     'goerli-qa': {
       chainId: 5,
       url: 'https://eth-goerli.g.alchemy.com/v2/821_LFssCCQnEG3mHnP7tSrc87IQKsUp',
